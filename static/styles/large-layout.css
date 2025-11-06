@@ -1,0 +1,77 @@
+@media screen and (min-width:1025px) {
+    :root {
+        --primary-color: #fdf9f5;
+        --accent2-color: #173459;
+    }
+    .hero .overlay{
+        display: flex;
+    }
+    .hero .overlay.animate {
+        animation: fadeIn 1s ease-in forwards;
+    }
+    @keyframes fadeIn {
+        to {
+            width: 50%;
+        }
+    }
+    main section {
+        margin: 10rem 0;
+    }
+    .features .row{
+        margin: 6rem 0;
+    }
+    .mission h2{
+        margin: 1rem 4rem;
+        text-align: center;
+        font-weight: 400;
+    }
+
+    article{
+        padding-top: 12rem;
+        color: #173459;
+    }
+    article .words{
+        font-size: 2.5rem;
+    }
+    .reference .col-sm-12 {
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .about-course{
+        display: flex;
+        flex-direction: row;
+    }
+    .about-course .txt{
+        margin-top: 6rem;
+
+    }
+    .about-course .txt p{
+        font-size: 1.5rem;
+        padding: 1rem;
+    }
+    .about-course picture{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 4rem;
+        margin-bottom: 0;
+    }
+
+    /* Login Page */
+    main .login-container {
+    }
+    .login-form {
+        min-height: 90vh;
+        max-width: 100%;
+    }
+    .login-form label {
+        color: var(--accent2-color);
+    }
+    /* Signup page*/
+    .signup .nav-details {
+        width: 30%;
+        right: -70%;
+    }
+
+
+}

@@ -1,0 +1,27 @@
+{% load static %}
+<header class="justify-content-lg-between  w-100">
+    <div class="logo">
+        <img src="{% static 'images/logo-removebg-preview.png' %}" alt="CareerCompass" width="110" height="110">
+    </div>
+    <button class="menu-btn d-lg-none d-md-block">
+        &Congruent;
+    </button>
+    <nav class="mt-md-4 mt-sm-4 ">
+        <ul class="gap-3">
+            <li class="w-md-100"><a href="{% url 'home' %}"><i class="bi bi-house"></i>  Home</a></li>
+            <li class="w-md-100"><a href="{% url 'userdashboard' %}"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+            <li class="w-md-100"><a href="{% url 'assessment' %}"><i class="bi bi-bookmarks-fill"></i> Assessment</a></li>
+            <li class="w-md-100"><a href="#testimony"><i class="bi bi-bookmark-check-fill"></i> Testimony</a></li>
+            <li class="w-md-100"><a href="#about"><i class="bi bi-info-circle-fill"></i> About Us</a></li>
+        </ul>
+        <div class="auth">
+            {% if request.user.is_authenticated %}
+            <a class="btn"><i class="bi bi-person-fill"></i> {{ request.user.get_full_name}}</a>
+            <a href="{% url 'Logout' %}" class="btn btn"><i class="bi bi-door-open-fill"></i> SIGN OUT</a>
+            {% else %}
+            <a href="{% url 'signup' %}" class="btn btn"><i class="bi bi-person-fill"></i> Register For Free</a>
+            <a href="{% url 'Login' %}" class="btn btn"><i class="bi bi-door-open-fill"></i> SIGN IN</a>
+            {% endif %}
+        </div>
+    </nav>
+</header>

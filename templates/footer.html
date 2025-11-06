@@ -1,0 +1,52 @@
+{% load static %}
+<footer class="fluid-container py-5 pb-3 px-4">
+    <div class="row">
+        <div class="col-lg-4">
+            <img src="{% static 'images/logo-removebg-preview.png' %}" alt="CareerCompass">
+        </div>
+        <div class="col-lg-4">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="{% url 'assessment' %}">Take Assessment</a></li>
+                <li><a href="#testimony">Testimony</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="{% url 'Login' %}">Login</a></li>
+                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-4">
+            <h4>Resources</h4>
+            <ul >
+                <li><a href="/faq/">FAQs</a></li>
+                <li><a href="/guides/how-to-choose-career/">Career Guide</a></li>
+                <li><a href="/blog/">Career Blog</a></li>
+                <li><a href="https://www.mynextmove.org/" target="_blank">MyNextMove.org</a></li>
+                <li><a href="https://www.bls.gov/ooh/" target="_blank">Occupational Outlook Handbook</a></li>
+                <li><a href="https://nigerianscholars.com/career-guide/" target="_blank">Nigerian Scholars Career Guide</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+    <hr class="mt-4 ">
+    <div class="social-media d-flex justify-content-center align-items-center gap-lg-4 gap-md-3 gap-sm-1 py-3">
+        <div class="text-center" id="contact">
+            <a href=""><img src="{% static 'images/icons8-facebook.svg'%}" alt="facebook"></a>
+        </div>
+        <div class=" text-center">
+            <a href=""><img src="{% static 'images/icons8-instagram.svg' %}" alt="facebook"></a>
+        </div>
+        <div class="text-center">
+            <a href=""><img src="{% static 'images/icons8-linkedin.svg' %}" alt="Linkedin"></a>
+        </div>
+        <div class=" text-center">
+            <a href=""><img src="{% static 'images/icons8-x.svg' %}" alt="X"></a>
+        </div>
+        <div class="text-center">
+            <a href=""><img src="{% static 'images/icons8-youtube.svg' %}" alt="youtube"></a>
+        </div>
+    </div>
+    <hr class="mt-4">
+    <p>&copy;<span id="year"></span> by CareerCompass. All rights reserved.</p>
+</footer>

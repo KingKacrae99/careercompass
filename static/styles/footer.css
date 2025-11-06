@@ -1,0 +1,15 @@
+footer{
+    background: darkgray;
+    width: 100%;
+}
+footer p{
+    text-align: center;
+    color: white;
+}
+footer ul{
+    list-style: none;
+    color: #173459;
+}
+footer ul li a{
+    color: #173459;
+}

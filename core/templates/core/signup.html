@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %} Sign Up {% endblock %}
+{% block content %}
+<div class="signup">
+    <div class="upper-section">
+        <button id="menu" type="button">
+            <img src="{% static 'images/menu.svg'%}" width="60" height="60 ">
+        </button>
+    </div>
+    <form action="{% url 'signup' %}" method="post" class="signup-form m-auto" data-aos="fade-up" data-aos-delay="100">
+        {% for message in messages %}
+           <p> {{message}} </p>
+        {% endfor %}
+        {% csrf_token %}
+        <h1 class="text-center mb-4">Form</h1>
+        <fieldset>
+            <div class="form-group ">
+                <label id="username">username:</label>
+                {{ form.username}}
+            </div>
+            <div class="form-group ">
+                <label id="firstname">First Name:</label>
+                {{ form.first_name}}
+            </div>
+            <div class="form-group">
+                <label id="lastname">Last Name:</label>
+                {{ form.last_name}}
+            </div>
+            <div class="form-group">
+                <label id="email">email:</label>
+                {{ form.email}}
+            </div>
+            <div class="form-group">
+                <label id="age">Age:</label>
+                {{ form.age}}
+            </div>
+            <div class="form-group">
+                <label id="phone">phone:</label>
+                {{ form.phone }}
+            </div>
+            <div class="form-group">
+                <label id="phone">Password:</label>
+                {{ form.password }}
+            </div>
+            <div class="form-group">
+                <label id="profile_image">Profile Image:</label><br>
+                {{ form.dp}}
+            </div>
+            <div class="form-group">
+                <label id="date_birth">Date of Birth:</label>
+                {{ form.dob }}
+            </div>
+        </fieldset>
+        <div class="signup-btn text-center" data-aos="fade-left">
+            <button type="submit" class="btn btn-danger btn-lg">Register</button>
+        </div>
+    </form>
+    <dialog class="nav-details">
+        <button type="button" id="closeModal">X</button>
+        <ul class="gap-3">
+            <li class="w-md-100"><a href="{% url 'home' %}"><i class="bi bi-house"></i> Home</a></li>
+            <li class="w-md-100"><a href="{% url 'Login' %}"><i class="bi bi-door-open-fill"></i> login</a></li>
+        </ul>
+    </dialog>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="{% static 'scripts/signup.mjs' %}"></script>
+{% endblock %}

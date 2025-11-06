@@ -1,0 +1,9 @@
+media/
+myenv/
+__pycache__/
+*.pyc
+db.sqlite3
+*.log
+*.sqlite3
+*.env
+staticfiles/

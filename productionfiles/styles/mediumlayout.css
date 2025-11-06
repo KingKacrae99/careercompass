@@ -1,0 +1,54 @@
+@media screen and (min-width:641PX) {
+    .mission .act-btn{
+        flex-direction: row;
+    }
+    .act-btn .btn-1 {
+            background: var(--accent2-color);
+            color: #fff;
+        }
+    article .words {
+        font-size: 1.5rem;
+    }
+    .about-course .txt {
+        
+    }
+    /* Login Page */
+    /*main .login-container {
+    }*/
+
+    /* signup page*/
+    .signup .signup-form {
+        grid-template-areas:
+            "c c"
+            "a "
+            "b"
+            "d ";
+        padding: 2rem;
+    }
+    .signup-form .signup-btn{
+        grid-area: d;
+    }
+    .signup-form fieldset {
+        grid-area: b;
+        display: grid;
+        grid-template-areas:
+        "e f";
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    /*** ASSESSMENT ***/
+    main .container {
+        background: transparent;
+    }
+    main .result {
+        display: block;
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9));
+        border-radius: 15px;
+        padding: 1rem;
+    }
+    main .container .row .assessment {
+        color: var(--primary-color);
+    }
+
+}

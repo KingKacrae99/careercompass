@@ -1,0 +1,425 @@
+:root {
+    --primary-color: #fdf9f5;
+    --accent2-color: #173459;
+}
+html{
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+
+}
+body{
+    margin: 0%;
+    overflow-x: hidden;
+}
+main{
+    min-height: 90vh;
+}
+.loader{
+    background: linear-gradient(rgba(23, 52, 89, 0.8), rgba(23, 52, 89, 0.8));
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0%;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: visible;
+    transition: opacity 0.75s, visibility 0.75s;
+    z-index: 15;
+}
+.result .card-loader{
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s, visibility 0.8s;
+    visibility: visible;
+    top: 0;
+    left: 0;
+}
+.hide-card-loader{
+    opacity: 0;
+    visibility: hidden;
+}
+.result .card-loader::after{
+    content: "";
+    width: 50px;
+    height: 50px;
+    border: 3px ;
+    border-radius: 50%;
+    border-style: dashed;
+    border-color: var(--primary-color);
+    animation: spinner 0.75s ease infinite;
+}
+@keyframes spinner {
+    from{
+        border-color: #f32470;
+        transform: rotate(0turn);
+        border-right-width: 1px;
+    }
+    to{
+        border-color: var(--primary-color);
+        transform: rotate(1turn);
+    }   
+}
+.loader-hidden{
+    opacity: 0;
+    visibility: hidden;
+}
+.loader::after{
+    content: "";
+    width: 75px;
+    height: 75px;
+    border: 15px dotted var(--primary-color);
+    border-top-color: var(--primary-color);
+    border-right-color: #B03060;
+    border-left-color: #f32470;
+    border-bottom-color: linear-gradient(rgba(23, 52, 89, 0.8), rgba(23, 52, 89, 0.8));
+    border-radius: 50%;
+    animation: loading 3s ease infinite;
+}
+
+@keyframes loading {
+    0%{
+        transform: rotate(0turn) scale3d(0.5, 0.5, 0.5);
+        border-color: var(--primary-color);
+    }
+    50%{
+        transform: rotate(0.5turn) scale3d(1,1,1);
+        border-color: #f32470;
+    }
+    100%{
+        transform: rotate(1turn) scale3d(1.5,1.5,1.5);
+    }
+}
+main .hero{
+    overflow-x: hidden;
+    position: relative;
+    z-index: 1;
+    margin-top: 0%;
+    padding: 0%;
+}
+.hero img{
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    z-index: 0;
+}
+
+.hero .overlay {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(rgba(23, 52, 89, 0.8), rgba(23, 52, 89, 0.8));
+    color: white;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    clip-path: polygon(0 0, 100% 0, 90% 90%, 88% 100%, 0 100%);
+    z-index: 0;
+}
+main section {
+    margin: 4rem 0;
+}
+
+main .features{
+    color: var(--accent2-color);
+    text-align: center;
+}
+.features h2{
+    font-weight:300;
+    padding:0rem 2rem;
+}
+main .mission{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: fade 2s ease forwards;
+}
+.mission .act-btn{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap:2rem;
+}
+.mission .act-btn a{
+    border: 1px solid var(--accent2-color);
+    text-align: center;
+}
+.act-btn .btn-1{
+    display:flex ;
+    background: var(--accent2-color);
+    color: #fff;
+}
+
+article {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+article .words{
+    padding: 1rem;
+    font-size: 1rem;
+}
+.reference .col-sm-12{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+section .col-sm-12 img{
+    animation: fade 2s ease forwards;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+.about-course{
+    display: grid;
+    grid-template-areas: 
+    "a"
+    "b";
+}
+.about-course .txt {
+    grid-area: b;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-course .txt p {
+    font-size: 1;
+    padding: 1rem;
+    text-align: center;
+}
+
+.about-course picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: a;
+    margin-bottom: 2rem;
+}
+
+/* Login Page */
+main .login-container{
+    background:url("/static/images/login-bg.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 90vh;
+    height: 100%;
+}
+.login-form{
+    backdrop-filter: blur(20px);
+    max-width: 90%;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-height: 90%;
+}
+.login-form .form-wrapper h1{
+    color: var(--accent2-color);
+}
+.login-form .form-wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    margin: auto;
+
+}
+.form-group {
+    margin-bottom: 1.5rem;
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.login-form label{
+    color: var(--primary-color);
+    font-weight: 700;
+    
+}
+.login-form .form-control {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    background: transparent;
+    color: #fff;
+}
+.login-form .btn:hover{
+    background: var(--accent2-color);
+    color: var(--primary-color);
+    border: 1px solid var(--accent2-color);
+}
+
+
+/** SIGN UP **/
+.signup{
+    background: linear-gradient(to right,rgba(0,0,0,0.6),rgba(0, 0, 0, 0.5)), url("/static/images/signup.webp");
+    min-height: 100vh;
+    max-width: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    color: var(--primary-color);
+    padding-bottom: 5em;
+}
+.signup .upper-section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+
+}
+.signup #menu{
+    background: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+}
+.signup .signup-form{
+    display: grid;
+    grid-template-areas:
+    "c" 
+    "b"
+    "a"
+    "d";
+    border: 1px solid transparent;
+    backdrop-filter: blur(30px);
+    margin-bottom: 3rem;
+    padding: 1rem;
+    height: 100%;
+    animation: slideIn  ease-in 2s forwards;
+}
+@keyframes slideIn {
+    from{
+        opacity: 0;
+        display: none;
+    }
+    to{
+        opacity: 1;
+        display: grid;
+    }
+}
+.signup-form h1{
+    grid-area: c;
+}
+.signup-form fieldset{
+    grid-area: b;
+    display: grid;
+    grid-template-areas: 
+    "a";
+}
+.signup-form .form-control{
+    background: transparent;
+    color: var(--primary-color);
+}
+.signup-form .signup-btn {
+    grid-area: d;
+}
+.signup .nav-details {
+    position: fixed;
+    top: 0;
+    right:-20%;
+    width: 80%;
+    min-height: 100%;
+    backdrop-filter: blur(30px);
+    background-color: rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+    overflow-y: auto;
+    border: none;
+    z-index: 999;
+}
+
+.nav-details[open] {
+    transform: translateX(0);
+}
+.nav-details #closeModal {
+    border: none;
+    background: transparent;
+    color: var(--primary-color);
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+}
+.nav-details ul{
+    list-style: none;
+}
+.nav-details ul li {
+    margin: 1rem 0;
+}
+.nav-details ul li a{
+    color: var(--primary-color);
+}
+.nav-details ul li :hover{
+    opacity: 0.8;
+    border-bottom: 2px solid var(--primary-color);
+    color: #ccc;
+}
+
+/******** Assessment Form **********/
+
+main .result {
+    color: var(--primary-color);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3));
+    border-radius: 15px;
+    padding: 1rem;
+    display: none;
+}
+main .result .card{
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.4));
+    border-radius: 15px;
+    color: var(--primary-color);
+    padding: 1rem;
+    animation: slideIn ease-in 4s alternate;
+}
+.assessment form{
+    /*backdrop-filter: blur(280px);*/
+    color: var(--accent2-color);
+    padding: 1rem;
+}
+.assessment form .form-control{
+    border-left: 3px solid #f32470;
+}
+
+.assessment form .btn{
+    background: #B03060;
+    width: 70%;
+    color: var(--primary-color);
+}
+.assessment form .btn:hover{
+    background:#f32470;
+}
+.container #result-details{
+    width: 80%;
+    height: 100%;
+    display: none;
+    border: 5rem solid #f32470 ;
+}
+.container #result-details #closeResult{
+    top: 23px;
+    right: 2px;
+}

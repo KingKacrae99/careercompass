@@ -1,0 +1,131 @@
+:root{
+    --primary-color: #fdf9f5;
+    --accent2-color: #173459;
+}
+header{
+    position: sticky;
+    top: 0%;
+    display: grid;
+    grid-template-areas: 
+    "a b"
+    "c c";
+    background: var(--primary-color);
+    padding: 1rem;
+    margin: 0;
+    z-index: 10;
+}
+header .logo{
+ grid-area: a;
+}
+
+.menu-btn{
+   grid-area: b;
+    font-size: 4rem;
+    background-color: transparent;
+    border: none;
+    justify-self: end;
+    align-self: start;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    color: var(--accent2-color);
+}
+
+header nav{
+    display: none;
+    color: var(--accent2-color);
+    grid-area: c;
+}
+.open{
+    display: flex;
+    flex-direction: column;
+}
+nav ul{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    width: 100%;
+    padding: 0%;
+}
+
+nav ul li {
+    width: 100%;
+    padding: 0%;
+}
+
+nav ul li a{
+    display: block;
+    color: var(--accent2-color);
+    padding: 0.5rem;
+    width: 100%;
+}
+nav ul li a:hover {
+    background: var(--accent2-color);
+    color: #fff;
+}
+
+nav .auth a{
+    color: var(--accent2-color);
+}
+nav .aut a:hover{
+    color: red;
+}
+a{
+    text-decoration: none;
+}
+
+@media screen and (min-width:64rem){
+    header{
+        display: flex;
+        flex-direction: row;
+    }
+    header .logo{
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    header nav{
+        display: grid;
+        grid-template-areas:
+        "a"
+        "b";
+        width:70%;
+        flex-direction: column;
+    }
+    nav ul{
+        flex-direction: row;
+        justify-content: end;
+        align-items: end;
+        grid-area: "a";
+    }
+    nav .auth{
+        text-align: right;
+        grid-area: "b";
+    }
+    nav ul li{
+        border-right:1px solid;
+        flex-direction: row;
+        width: auto;
+    }
+    nav ul li:last-child{
+        border-right: none;
+    }
+    nav ul li a{
+        font-size: 1.1rem;
+        font-weight: 500;
+        padding: 0.5rem;
+        width:auto;
+    }
+    nav ul li a:hover {
+        color: red;
+        background: transparent;
+    }
+    nav .auth a{
+        border: 1px solid;
+    }
+    nav .auth a:first-child{
+        background: var(--accent2-color);
+        color: #fff;
+    }
+}
