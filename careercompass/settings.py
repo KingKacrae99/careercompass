@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-gax*55gd-y)=y40ozl&8%tby*u4=q$&hx^-8(s5+_6_i(wi$60
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://careercompass-x8ax.onrender.com']
 
 
 # Application definition
