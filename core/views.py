@@ -7,10 +7,11 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from .form import CustomUserForm, AssessmentForm,LoginForm
-from .career import careers
+#from .career import careers
 # Create your views here.
 
 def home_View(request):
+    """
     existing_names = set(Career.objects.values_list('name', flat=True))
 
     new_careers = [
@@ -20,7 +21,7 @@ def home_View(request):
     ]
 
     Career.objects.bulk_create(new_careers)
-    
+    """
     return render(request, 'core/index.html')
 
 def login_view(request):
