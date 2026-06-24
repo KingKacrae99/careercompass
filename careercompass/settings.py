@@ -75,14 +75,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'careercompass.wsgi.application'
 
-
+DATABASE_ENV_URL = config('DATABASE_URL', default='')
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    'default': dj_database_url.config(
+        default=DATABASE_ENV_URL,
+        # Forces Django to use Psycopg 3
+        engine='django.db.backends.postgresql', 
+        # Neon strictly requires SSL connections
+        ssl_require=True,                       
+        # Optimizes performance by keeping connections open
+        conn_max_age=600                        
+    )
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
