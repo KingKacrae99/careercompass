@@ -85,7 +85,7 @@ def assessment_view(request):
 
        form = AssessmentForm({
             'favorite_subject': data.get('favorite'),
-            'classified': data.get('classfied'),
+            'classified': data.get('classified'),
             'strength': data.get('strength'),
             'interest' : data.get('interest')
         })
