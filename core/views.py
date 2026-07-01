@@ -7,6 +7,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from .form import CustomUserForm, AssessmentForm,LoginForm
+from .ai_utils import get_career_advice
 # Create your views here.
 
 def home_View(request):
@@ -76,46 +77,68 @@ def sigup_view(request):
 
 @login_required(login_url='Login')
 def assessment_view(request):
-    form = AssessmentForm(request.POST or None)
-    if request.method == 'POST' and  request.headers.get('Content-Type') == 'application/json':
-       try:
-           data = json.loads(request.body)
-       except json.JSONDecodeError:
-           return JsonResponse({'error': 'Invalid JSON.'}, status=400)
+    form = AssessmentForm()
+    
+    if request.method == 'POST' and request.headers.get('Content-Type') == 'application/json':
+        try:
+            data = json.loads(request.body)
+            submission_mode = data.get('mode')
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON.'}, status=400)
 
-       form = AssessmentForm({
-            'favorite_subject': data.get('favorite'),
-            'classified': data.get('classified'),
-            'strength': data.get('strength'),
-            'interest' : data.get('interest')
-        })
-       if form.is_valid():
-           assessment = form.save(commit=False)
-           assessment.user = request.user
-           assessment.save()
+        # Extracted values from payload
+        favorite = data.get('favorite')
+        classified = data.get('classfied')  # JavaScript key: 'classfied'
+        strength = data.get('strength')
+        interest = data.get('interest')
+        discipline = Discipline.objects.get(id=int(classified))
+        if submission_mode == 'ai_generation':
+            suggestion = get_career_advice(favorite, strength, interest, discipline.branch)
+            return JsonResponse({
+                'reply': suggestion
+            }, status=200)
+            
+        else:
+            # Reconstruct form payload matching Django Form Keys
+            form_data = {
+                'favorite_subject': favorite,
+                'classified': classified,
+                'strength': strength,
+                'interest': interest
+            }
+            form = AssessmentForm(form_data)
+            
+            if form.is_valid():
+                assessment = form.save(commit=False)
+                assessment.user = request.user
+                assessment.save()
 
-           discipline = assessment.classified
-           careers = Career.objects.filter(
-                strength=assessment.strength, 
-                interest= assessment.interest,
-                discipline=discipline
+                # FIXED: Access the ForeignKey object directly from the saved instance
+                discipline_instance = assessment.classified
+
+                # FIXED: Query Career using the matched model relation instance
+                careers = Career.objects.filter(
+                    strength=assessment.strength, 
+                    interest=assessment.interest,
+                    discipline=discipline_instance
                 )
 
-           assessment.career.set(careers)
+                # Save ManyToMany relationships safely
+                assessment.career.set(careers)
 
-           career_list = list(careers.values(
-                'name', 'description', 'subject_group', 'strength','interest', 'discipline'
-            ))
-            
-           return JsonResponse({
-                'message': f'{careers.count()} career(s) matched.',
-                'careers': career_list
-            })
-       else:
-           return JsonResponse({'errors': form.errors}, status=400)
-        
-
-    context ={
+                # Convert queryset into serializable values
+                career_list = list(careers.values(
+                    'name', 'description', 'subject_group', 'strength', 'interest', 'discipline__branch'
+                ))
+                    
+                return JsonResponse({
+                    'message': f'{careers.count()} career(s) matched.',
+                    'careers': career_list
+                })
+            else:
+                return JsonResponse({'errors': form.errors}, status=400)
+                
+    context = {
         'form': form,
     }
     return render(request, 'core/assessment.html', context)

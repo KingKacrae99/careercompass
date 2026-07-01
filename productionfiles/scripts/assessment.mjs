@@ -1,9 +1,30 @@
 const assessmentForm = document.getElementById("assessment-form");
 const cardLoader = document.querySelector(".card-loader");
 const url = '/careercompass/assessment';
+
+function typeWriterMarkdown(text, element) {
+    let i = 0;
+    let currentText = "";
+
+    function type() {
+        if (i < text.length) {
+            currentText += text.charAt(i);
+            element.innerHTML = marked.parse(currentText);
+
+            element.scrollTop = element.scrollHeight;
+
+            i++;
+            setTimeout(type, 15);
+        }
+    }
+
+    type();
+}
+
 assessmentForm.addEventListener("submit", (e) => {
     e.preventDefault()
 
+    const clickedButtonId = e.submitter.id;
     cardLoader.style.display = "flex";
     const favoriteValue = document.getElementById("favorite").value;
     const classfiedValue = document.getElementById("classfied").value;
@@ -11,19 +32,23 @@ assessmentForm.addEventListener("submit", (e) => {
     const interestSelectValue = document.getElementById("interest-select").value;
 
     if (!favoriteValue) {
-     alert("Please fill in the favorite field.");
+      alert("Please fill in the favorite field.");
+      cardLoader.style.display = "none";
       return;  
     } 
     if (!classfiedValue) {
         alert("Please fill in the classfied field.");
+        cardLoader.style.display = "none";
         return;
     }
     if (!strengthSelectValue) {
         alert("Please fill in the strength-select field.");
+        cardLoader.style.display = "none";
         return;
     }
     if (!interestSelectValue) {
         alert("Please fill in the interest-select field.");
+        cardLoader.style.display = "none";
         return;
     }
     if (favoriteValue && 
@@ -37,18 +62,30 @@ assessmentForm.addEventListener("submit", (e) => {
             interestSelectValue: ${interestSelectValue}`);
     }
 
+    // Network request payload
+    const requestPayload ={
+        favorite: favoriteValue,
+        classfied: classfiedValue,
+        strength: strengthSelectValue, 
+        interest: interestSelectValue,
+        mode: ""
+    }
+
+    // Determine the mode based on the clicked button
+    if (clickedButtonId === "ai-btn"){
+        requestPayload.mode = "ai_generation";
+    }else{
+        requestPayload.mode = "standard";
+    }
+
+    // Send the request to the Django backend
     fetch(url, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': getCSRFToken()
         },
-        body: JSON.stringify({
-            favorite: favoriteValue,
-            classfied: classfiedValue,
-            strength: strengthSelectValue, 
-            interest: interestSelectValue  
-        })
+        body: JSON.stringify(requestPayload)
     })
     .then(async response => {
         if (!response.ok) {
@@ -67,27 +104,41 @@ assessmentForm.addEventListener("submit", (e) => {
     .then(data => {
         console.log('Response from Django:', data);
         const results = document.querySelector(".result");
+
+        if (cardLoader) {
+            cardLoader.classList.add("hide-card-loader");
+            cardLoader.style.display = "none";
+        }
+
+        results.innerHTML = "";
+
         if (data.careers && data.careers.length > 0) {
-            setTimeout(() => {
-                cardLoader.classList.add("hide-card-loader");
-                cardLoader.remove();
-                results.innerHTML = "";
-                data.careers.forEach(career => {
-                    const div = document.createElement('div');
-                    div.classList.add("card");
-                    div.innerHTML = `
-                        <h3>${career.name}</h3>
-                        <p><strong>Subject Group:</strong> ${career.subject_group}</p>
-                        <p>${career.description}</p>
-                        <p><strong>Strength:</strong> ${career.strength}</p>
-                        <p><strong>Interest:</strong> ${career.interest}</p>
-                        <p><strong>Discipline:</strong> ${career.discipline.branch}</p>
-                    `;
-                    results.append(div);
-                });  
-            }, 2500)
+            data.careers.forEach(career => {
+                const div = document.createElement('div');
+                div.classList.add("card","mb-3");
+                div.innerHTML = `
+                    <h3>${career.name}</h3>
+                    <p><strong>Subject Group:</strong> ${career.subject_group}</p>
+                    <p>${career.description}</p>
+                    <p><strong>Strength:</strong> ${career.strength}</p>
+                    <p><strong>Interest:</strong> ${career.interest}</p>
+                    <p><strong>Discipline:</strong> ${career.discipline__branch}</p>
+                `;
+                results.append(div);
+            });  
+        } else if (data.reply) {
+            const div = document.createElement('div');
+            div.classList.add("card", "ai_response")
+            div.innerHTML=`
+                 <h3>AI Career Advisor</h3>
+                <div class="ai-content"></div>
+            `
+            results.append(div)
+
+            const aiContent = div.querySelector(".ai-content");
+            typeWriterMarkdown(data.reply, aiContent);
         } else {
-            results.innerHTML = "<p>No careers matched your input.</p>";
+            results.innerHTML = "<p>No matching data or suggestions were returned.</p>";
         }
     })
     .catch(error => {

@@ -1,35 +1,37 @@
-import os
-import request
+from google import genai
 from django.conf import settings
 
-API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-large"
-headers = {"Authorization": f"Bearer {settings.HUGGINGFACE_TOKEN}"}
+client = genai.Client(
+    api_key=settings.API_KEY
+)
 
-def get_career_advice(subject,strength,interest,discipline):
+
+def get_career_advice(subject, strength, interest, discipline):
     prompt = f"""
-            You are a professional career advisor.
+    You are a professional career advisor.
 
-            user Information:
-            Discipline: {discipline}
-            Favourite Subject: {subject}
-            Strength: {strength}
-            Interest: {interest}
+    User Information:
+    Discipline: {discipline}
+    Favourite Subject: {subject}
+    Strength: {strength}
+    Interest: {interest}
 
-            Provide:
-            1. Three suitable careers.
-            2. Why each career matches the user.
-            3. Subjects the user should focus on.
-            4. One piece of advice for preparing for these careers.
+    Provide:
+    1. Three suitable careers.
+    2. Why each career matches the user.
+    3. Subjects the user should focus on.
+    4. One piece of advice for preparing for these careers.
 
-            Keep the response simple.
-            """
+    Keep the response simple for a senior secondary school student.
+    """
 
-    response = request.post(API_URL,headers=headers, json={'input':prompt})
+    try:
+        response = client.models.generate_content(
+            model="gemini-3.5-flash",
+            contents=prompt,
+        )
+        print(response.text)
+        return response.text
 
-    data = response.json()
-
-    if isinstance(data, list):
-       return data[0]["generated text"]
-
-    return "Unable to generate recommendation right now"
-
+    except Exception as e:
+        return f"AI Error: {e}"

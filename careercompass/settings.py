@@ -76,7 +76,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'careercompass.wsgi.application'
 
 DATABASE_ENV_URL = config('DATABASE_URL', default='')
-HUGGINGFACE_TOKEN = config('HUGGINGFACE_TOKEN', default='')  # Add this line to retrieve the token from the environment variable
+API_KEY = config('API_KEY', default='')  # Add this line to retrieve the token from the environment variable
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 DATABASES = {
